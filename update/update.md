@@ -2,6 +2,10 @@
 ### 原模块地址: https://gitee.com/sutoliu/AppOpt
 #### 二改模块日志
 
+> 19.9
+- 删除了`riscv64`架构(**毕竟也没有人用**)，节省模块体积。
+- 修复`AppOpt`一个配置文件更新可能存在的bug。
+- 调整**三角洲行动、我的世界线程**。
 > 19.8
 - 修改`Aloazny.sh`对`/`或者`\/`开头的不做`#`注释。
 - 调整`cpu_control.sh`，将`magiskd`/`zygiskd`/`charge_logger`/`mdnsd`/`logd`放到小核簇。
