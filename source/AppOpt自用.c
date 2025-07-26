@@ -561,8 +561,8 @@ static AppConfig* load_config(const char* config_file, const CpuTopology* topo, 
         rule->cpuset_dir[sizeof(rule->cpuset_dir) - 1] = '\0';
         free(dir_name);
 
-        rule->is_wildcard = (strchr(pkg, '*') != NULL || strchr(pkg, '?') != NULL);
-        rule->priority = calculate_rule_priority(rule->thread);
+        rule->is_wildcard = (strchr(pkg, '*') != NULL || strchr(pkg, '?') != NULL || strchr(pkg, '[') != NULL);
+        rule->priority = calculate_rule_priority(thread[0] ? thread : pkg);
 
         num_rules++;
 
@@ -691,7 +691,6 @@ static void proc_collect(const AppConfig* cfg, ProcCache* cache, size_t* count) 
     while (1) {
         int nread = syscall(__NR_getdents64, proc_fd, (struct linux_dirent64*)dent_buf, DENT_BUF_SIZE);
         if (nread == -1) {
-            printf("getdents64 失败: %s\n", strerror(errno));
             break;
         }
         if (nread == 0) break;
@@ -803,24 +802,28 @@ static void proc_collect(const AppConfig* cfg, ProcCache* cache, size_t* count) 
                 const AffinityRule* rule = &cfg->rules[i];
                 if ((strcmp(rule->pkg, proc->pkg) == 0) ||
                     (rule->is_wildcard && fnmatch(rule->pkg, proc->pkg, 0) == 0)) {
-                    if (rule->thread[0]) {
-                        if (proc->num_thread_rules >= proc->thread_rules_cap) {
-                            size_t new_cap = proc->thread_rules_cap * 2;
-                            AffinityRule** tmp = realloc(proc->thread_rules, new_cap * sizeof(AffinityRule*));
-                            if (!tmp) break;
-                            proc->thread_rules = tmp;
-                            proc->thread_rules_cap = new_cap;
-                        }
-                        proc->thread_rules[proc->num_thread_rules++] = (AffinityRule*)rule;
-                    } else {
-                        CPU_OR(&proc->base_cpus, &proc->base_cpus, &rule->cpus);
-                        build_str(proc->base_cpuset, sizeof(proc->base_cpuset), rule->cpuset_dir, NULL);
+                    if (proc->num_thread_rules >= proc->thread_rules_cap) {
+                        size_t new_cap = proc->thread_rules_cap * 2;
+                        AffinityRule** tmp = realloc(proc->thread_rules, new_cap * sizeof(AffinityRule*));
+                        if (!tmp) break;
+                        proc->thread_rules = tmp;
+                        proc->thread_rules_cap = new_cap;
                     }
+                    proc->thread_rules[proc->num_thread_rules++] = (AffinityRule*)rule;
                 }
             }
 
             if (proc->num_thread_rules > 1) {
                 qsort(proc->thread_rules, proc->num_thread_rules, sizeof(AffinityRule*), compare_rules);
+            }
+
+            for (size_t i = 0; i < proc->num_thread_rules; i++) {
+                const AffinityRule* rule = proc->thread_rules[i];
+                if (!rule->thread[0]) {
+                    CPU_OR(&proc->base_cpus, &proc->base_cpus, &rule->cpus);
+                    build_str(proc->base_cpuset, sizeof(proc->base_cpuset), rule->cpuset_dir, NULL);
+                    break;
+                }
             }
 
             if (CPU_COUNT(&proc->base_cpus) == 0 && proc->num_thread_rules == 0) {
@@ -933,7 +936,7 @@ static void proc_collect(const AppConfig* cfg, ProcCache* cache, size_t* count) 
     } else {
         cache->scan_all_proc = false;
     }
-        cache->last_proc_total = current_proc_total;
+    cache->last_proc_total = current_proc_total;
 }
 
 static void update_cache(ProcCache* cache, const AppConfig* cfg, int* affinity_counter) {
