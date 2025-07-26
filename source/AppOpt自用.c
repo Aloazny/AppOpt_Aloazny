@@ -746,24 +746,6 @@ static void proc_collect(const AppConfig* cfg, ProcCache* cache, size_t* count) 
             char* name = strrchr(cmd, '/');
             name = name ? name + 1 : cmd;
 
-            PackageEntry* pkg_entry;
-            HASH_FIND_STR(cfg->pkg_table, name, pkg_entry);
-            bool matched = (pkg_entry != NULL);
-            if (!matched) {
-                for (size_t i = 0; i < cfg->num_wildcard_rules; i++) {
-                    const AffinityRule* rule = cfg->wildcard_rules[i];
-                    if (fnmatch(rule->pkg, name, 0) == 0) {
-                        matched = true;
-                        break;
-                    }
-                }
-            }
-            if (!matched) {
-                close(pid_fd);
-                pos += ent->d_reclen;
-                continue;
-            }
-
             if (*count >= cache->procs_cap) {
                 size_t new_cap = cache->procs_cap * 2;
                 ProcessInfo* new_procs = realloc(cache->procs, new_cap * sizeof(ProcessInfo));
@@ -798,18 +780,59 @@ static void proc_collect(const AppConfig* cfg, ProcCache* cache, size_t* count) 
                 proc->thread_rules_cap = new_cap;
             }
 
-            for (size_t i = 0; i < cfg->num_rules; i++) {
-                const AffinityRule* rule = &cfg->rules[i];
-                if ((strcmp(rule->pkg, proc->pkg) == 0) ||
-                    (rule->is_wildcard && fnmatch(rule->pkg, proc->pkg, 0) == 0)) {
-                    if (proc->num_thread_rules >= proc->thread_rules_cap) {
-                        size_t new_cap = proc->thread_rules_cap * 2;
-                        AffinityRule** tmp = realloc(proc->thread_rules, new_cap * sizeof(AffinityRule*));
-                        if (!tmp) break;
-                        proc->thread_rules = tmp;
-                        proc->thread_rules_cap = new_cap;
+            PackageEntry* pkg_entry;
+            HASH_FIND_STR(cfg->pkg_table, name, pkg_entry);
+            bool matched = (pkg_entry != NULL);
+            if (!matched) {
+                for (size_t i = 0; i < cfg->num_wildcard_rules; i++) {
+                    const AffinityRule* rule = cfg->wildcard_rules[i];
+                    if (fnmatch(rule->pkg, name, 0) == 0) {
+                        if (proc->num_thread_rules >= proc->thread_rules_cap) {
+                            size_t new_cap = proc->thread_rules_cap * 2;
+                            AffinityRule** tmp = realloc(proc->thread_rules, new_cap * sizeof(AffinityRule*));
+                            if (!tmp) break;
+                            proc->thread_rules = tmp;
+                            proc->thread_rules_cap = new_cap;
+                        }
+                        proc->thread_rules[proc->num_thread_rules++] = (AffinityRule*)rule;
+                        matched = true;
                     }
-                    proc->thread_rules[proc->num_thread_rules++] = (AffinityRule*)rule;
+                }
+            }
+            if (!matched) {
+                close(pid_fd);
+                pos += ent->d_reclen;
+                continue;
+            }
+
+            if (pkg_entry) {
+                for (size_t i = 0; i < cfg->num_rules; i++) {
+                    const AffinityRule* rule = &cfg->rules[i];
+                    if ((strcmp(rule->pkg, proc->pkg) == 0) ||
+                        (rule->is_wildcard && fnmatch(rule->pkg, proc->pkg, 0) == 0)) {
+                        if (proc->num_thread_rules >= proc->thread_rules_cap) {
+                            size_t new_cap = proc->thread_rules_cap * 2;
+                            AffinityRule** tmp = realloc(proc->thread_rules, new_cap * sizeof(AffinityRule*));
+                            if (!tmp) break;
+                            proc->thread_rules = tmp;
+                            proc->thread_rules_cap = new_cap;
+                        }
+                        proc->thread_rules[proc->num_thread_rules++] = (AffinityRule*)rule;
+                    }
+                }
+            } else {
+                for (size_t i = 0; i < cfg->num_rules; i++) {
+                    const AffinityRule* rule = &cfg->rules[i];
+                    if (!rule->is_wildcard && strcmp(rule->pkg, proc->pkg) == 0) {
+                        if (proc->num_thread_rules >= proc->thread_rules_cap) {
+                            size_t new_cap = proc->thread_rules_cap * 2;
+                            AffinityRule** tmp = realloc(proc->thread_rules, new_cap * sizeof(AffinityRule*));
+                            if (!tmp) break;
+                            proc->thread_rules = tmp;
+                            proc->thread_rules_cap = new_cap;
+                        }
+                        proc->thread_rules[proc->num_thread_rules++] = (AffinityRule*)rule;
+                    }
                 }
             }
 
