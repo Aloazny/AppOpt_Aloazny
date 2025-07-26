@@ -1123,7 +1123,10 @@ static void* config_loader_thread(void* arg) {
                     if (new_config) {
                         AppConfig* old_config = atomic_exchange(&current_config, new_config);
                         atomic_store(&config_updated, 1);
-                        if (old_config) config_release(old_config);
+                        if (old_config) {
+                            usleep(10000);
+                            config_release(old_config);
+                        }
                     }
                     config_release(cfg);
                 }
@@ -1135,7 +1138,10 @@ static void* config_loader_thread(void* arg) {
                 if (new_config) {
                     AppConfig* old_config = atomic_exchange(&current_config, new_config);
                     atomic_store(&config_updated, 1);
-                    if (old_config) config_release(old_config);
+                    if (old_config) {
+                        usleep(10000);
+                        config_release(old_config);
+                    }
                 }
                 config_release(cfg);
             }
