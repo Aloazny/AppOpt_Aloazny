@@ -2,7 +2,8 @@
 ### 原模块地址: https://gitee.com/sutoliu/AppOpt
 #### 二改模块日志
 
-
+> 20.6
+- 添加小黑盒(`com.max.xiaoheihe`)，Steam(`com.valvesoftware.android.steam.community`)适配。
 > 20.5
 - 调整`6+2`核心设计修改，区分高性能和中低端性能的处理器，高性能处理器减少跨簇的情况。
 - 调整`哔哩哔哩`和`永劫无间`线程。
