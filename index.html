@@ -1,0 +1,725 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AppOpt 二改</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&amp;display=swap" rel="stylesheet">
+    <script src="https://aloazny.github.io/AppOpt_Aloazny/js/marked.min.js"></script>
+    <link rel="stylesheet" href="https://aloazny.github.io/AppOpt_Aloazny/js/default.min.css">
+    <script src="https://aloazny.github.io/AppOpt_Aloazny/js/highlight.min.js"></script>
+    <style>
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            color: #333;
+            line-height: 1.6
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 22px;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            opacity: 0
+        }
+        
+        .container.loaded {
+            opacity: 1;
+            transform: translateY(0)
+        }
+        
+        @supports not (backdrop-filter:blur(20px)) {
+            .container {
+                background: rgba(240, 240, 240, 0.85)
+            }
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            font-weight: 600
+        }
+        
+        h2 {
+            color: #34495e;
+            font-size: 1.8em;
+            margin-top: 30px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px
+        }
+        
+        ul {
+            list-style-type: disc;
+            padding-left: 20px
+        }
+        
+        li {
+            margin-bottom: 10px
+        }
+        
+        a {
+            color: #3498db;
+            text-decoration: none;
+            transition: color 0.3s
+        }
+        
+        a:hover {
+            color: #2980b9;
+            text-decoration: underline
+        }
+        
+        code {
+            background: #f1f1f1;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+            word-break: break-all;
+            white-space: normal;
+            display: inline-block;
+            max-width: 100%
+        }
+        
+        pre {
+            background: #f1f1f1;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto
+        }
+        
+        .error {
+            color: #e74c3c;
+            text-align: center;
+            padding: 10px;
+            border: 1px solid #e74c3c;
+            border-radius: 4px
+        }
+        
+        nav {
+            position: fixed;
+            bottom: 120px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 12px 20px;
+            border-radius: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+            opacity: 1;
+        }
+        
+        nav.hidden {
+            transform: translateX(-50%) translateY(100px);
+            opacity: 0;
+        }
+        
+        @supports not (backdrop-filter: blur(10px)) {
+            nav {
+                background: rgba(240, 240, 240, 0.9)
+            }
+        }
+        
+        nav a {
+            margin: 0 15px;
+            font-weight: 500;
+            color: #1C2526;
+            font-size: 14px;
+            transition: transform 0.2s ease-out, color 0.2s ease-out
+        }
+        
+        nav a:hover {
+            color: #2980b9;
+            text-decoration: none;
+            transform: scale(1.1)
+        }
+        
+        .modal,
+        .tooltip-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            z-index: 200;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.2s ease-out
+        }
+        
+        @supports not (backdrop-filter: blur(15px)) {
+            .modal,
+            .tooltip-modal {
+                background: rgba(0, 0, 0, 0.7)
+            }
+        }
+        
+        .modal-content,
+        .tooltip-modal-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+            text-align: left;
+            max-width: 400px;
+            width: 90%;
+            animation: bounceIn 0.2s ease-out;
+            font-size: 14px;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased
+        }
+        
+        .tooltip-modal-content p {
+            margin: 5px 0
+        }
+        
+        #file-select {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 14px
+        }
+        
+        #download-btn {
+            background: #3498db;
+            color: #fff;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s ease-in-out, transform 0.2s ease-in-out;
+            display: block;
+            margin: 10px auto
+        }
+        
+        #download-btn:hover {
+            background: #2980b9;
+            transform: scale(1.05)
+        }
+        
+        #markdown-content {
+            display: none
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateX(-50%) translateY(50px); opacity: 0 }
+            to { transform: translateX(-50%) translateY(0); opacity: 1 }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0 }
+            to { opacity: 1 }
+        }
+        
+        @keyframes bounceIn {
+            from { transform: scale(0.5); opacity: 0 }
+            to { transform: scale(1); opacity: 1 }
+        }
+        
+        @media (max-width:600px) {
+            .container {
+                margin: 20px;
+                padding: 20px
+            }
+            
+            h1 {
+                font-size: 2em
+            }
+            
+            h2 {
+                font-size: 1.5em
+            }
+            
+            nav {
+                padding: 8px 15px;
+                bottom: 10px
+            }
+            
+            nav a {
+                margin: 0 8px;
+                font-size: 12px
+            }
+            
+            code {
+                font-size: 0.9em
+            }
+            
+            .modal-content,
+            .tooltip-modal-content {
+                max-width: 300px;
+                padding: 15px;
+                font-size: 12px
+            }
+            
+            #download-btn {
+                padding: 8px 16px;
+                font-size: 12px
+            }
+        }
+        
+        .custom-select {
+            position: relative;
+            width: 100%;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        
+        .select-selected {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .select-selected:hover {
+            background: rgba(255, 255, 255, 1);
+            transform: scale(1.02);
+        }
+        
+        .select-selected::after {
+            content: '▼';
+            font-size: 12px;
+            color: #3498db;
+        }
+        
+        .select-items {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 300;
+            margin-top: 5px;
+            opacity: 0;
+            transform: scale(0.95);
+            transform-origin: top;
+            transition: all 0.3s ease-out;
+        }
+        
+        .select-items.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .select-items div {
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .select-items div:last-child {
+            border-bottom: none;
+        }
+        
+        .select-items div:hover {
+            background: #3498db;
+            color: #fff;
+            transform: scale(1.02);
+        }
+        
+        .select-items div.selected {
+            background: #2980b9;
+            color: #fff;
+        }
+        
+        .select-hide {
+            display: none;
+        }
+        
+        @supports not (backdrop-filter: blur(10px)) {
+            .select-selected,
+            .select-items {
+                background: rgba(240, 240, 240, 0.95);
+            }
+        }
+        
+        .tooltip-trigger {
+            color: #3498db;
+            cursor: pointer;
+            font-size: 0.8em;
+            vertical-align: super;
+            margin-left: 2px;
+            transition: color 0.2s ease-in-out;
+        }
+        
+        .tooltip-trigger:hover {
+            color: #2980b9;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id="home-content">
+            <h1>AppOpt (二改)</h1>
+            <h2 id="介绍">介绍</h2>
+            <ul>
+                <li>一个使用 C 语言编写，支持定义规则的安卓应用与游戏线程优化程序，SutoLiu 大佬原创，Aloazny 二改。</li>
+                <li>使用 GPL3.0 开源协议，自行去<a href="https://gitee.com/sutoliu/AppOpt">原仓库</a>查看。</li>
+                <li>二改需公开源代码，并署名原作者<a href="https://www.coolapk1s.com/u/SutoLiu">@coolapk SutoLiu 大佬</a>。</li>
+            </ul>
+            <h2 id="参数说明">二改部分参数以及 Flags 说明</h2>
+            <ul>
+                <li>支持指定<code>AppOpt</code>配置文件，使用命令参数<code>-c 文件路径</code>，不指定则和原模块<code>applist.conf</code>一致。</li>
+                <li><code>-s</code>指定扫描<code>/proc</code>的时间间隔。</li>
+                <li><code>uthash.h</code>管理配置文件数据。</li>
+                <li><strong>进程名</strong>支持通配符，<strong>线程名</strong>支持优先级排序，全词（精确）匹配优于通配符。</li>
+                <li>支持<strong>机械性适配</strong><code>6+2</code>、<code>3+4+1</code>、<code>2+3+2+1</code>、<code>4+4</code>核心配置，<strong><code>4+3+1</code>的配置是默认配置（同核心配置无需修改）</strong>，通过创建<code>/data/adb/modules/AppOpt_Aloazny/modtify_config</code>空文件启用机械性配置修改，<strong>默认启用</strong>。</li>
+                <li>支持<strong>配置文件优先级</strong>，创建<code>/data/adb/modules/AppOpt_Aloazny/update_config</code>空文件，就会使用模块的配置，而不是读取用户上一次自定义的配置，<strong>默认使用模块配置</strong>。</li>
+                <li>创建<code>/data/adb/modules/AppOpt_Aloazny/delete_game_config</code>空文件，<strong>就会删除自带的游戏配置</strong>。</li>
+                <li>创建<code>/data/adb/modules/AppOpt_Aloazny/dexota_modtify</code>空文件，用于修改<code>dex2oat</code>的 prop 值，具体请参考<a href="https://source.android.com/docs/core/runtime/configure?hl=zh-cn#compiler_filters">Google 官方文档 ART</a>。</li>
+                <li>创建<code>/data/adb/modules/AppOpt_Aloazny/{disable_program/enable_program}</code>空文件，用于控制是否禁用一些冲突（<strong>如果存在</strong>）的系统进程，具体请自行查看<code>program_ctrl.sh</code>脚本，默认不做任何修改。</li>
+                <li>创建<code>/data/adb/modules/AppOpt_Aloazny/keep_custom_rule</code>用于安装时，增量更新<sup class="tooltip-trigger" data-tooltip="incremental-update">①</sup>用户修改/添加的规则。</li>
+            </ul>
+            <h2 id="适配列表">模块适配列表</h2>
+            <ul>
+                <li><a href="#适配列表" data-md="https://aloazny.github.io/AppOpt_Aloazny/update/%E9%80%82%E9%85%8D%E5%BA%94%E7%94%A8.md">点击查看</a></li>
+            </ul>
+            <h2 id="更新日志">模块历史更新日志</h2>
+            <ul>
+                <li><a href="#更新日志" data-md="https://aloazny.github.io/AppOpt_Aloazny/update/update.md">点击查看</a></li>
+            </ul>
+            <h2 id="下载地址">下载地址</h2>
+            <ul>
+                <li><a href="https://aloazny.lanzouo.com/b00je9nu1i">蓝奏云下载 密码: 111</a></li>
+                <li><a href="#" id="github-download-link">GitHub 下载</a></li>
+                <li>底包<code>1.3.5</code>版本<sup class="tooltip-trigger" data-tooltip="version-1.3.5">②</sup></li>
+                <li><a href="https://aloazny.lanzouo.com/b00jeipeeb">1.3.5版本蓝奏云下载 密码: 111</a></li>
+                <li><code>实时模式</code>版本<sup class="tooltip-trigger" data-tooltip="version-sched-setscheduler">③</sup></li>
+                <li><a href="https://aloazny.lanzouo.com/b00jeku6cd">实时模式版本蓝奏云下载 密码: 111</a></li>
+            </ul>
+            <h2 id="教程">线程配置理念和教程</h2>
+            <ul>
+                <li><a href="https://www.coolapk.com/feed/63785290">教程和理念</a></li>
+                <li><a href="https://www.coolapk.com/feed/63763679">获取线程</a></li>
+            </ul>
+            <h2 id="感谢">感谢</h2>
+            <ul>
+                <li><a href="https://gitee.com/sutoliu/AppOpt">AppOpt (GPL3.0)</a></li>
+                <li><a href="https://troydhanson.github.io/uthash/">Uthash (BSD2.0)</a></li>
+                <li><a href="https://github.com/yeg278/DeamOpt">DeamOpt (GPL3.0)</a></li>
+                <li><a href="https://github.com/markedjs/marked">markedjs (MIT)</a></li>
+                <li><a href="https://highlightjs.org">Highlight.js (BSD3.0)</a></li>
+            </ul>
+        </div>
+        <div id="markdown-content" class="markdown-body"></div>
+    </div>
+    <nav><a href="#" data-view="home">主页</a><a href="#介绍">介绍</a><a href="#参数说明">参数说明</a><a href="#适配列表" data-md="https://aloazny.github.io/AppOpt_Aloazny/update/%E9%80%82%E9%85%8D%E5%BA%94%E7%94%A8.md">适配列表</a><a href="#更新日志" data-md="https://aloazny.github.io/AppOpt_Aloazny/update/update.md">更新日志</a><a href="#下载地址">下载地址</a><a href="#教程">教程</a><a href="#感谢">感谢</a></nav>
+    <div id="download-modal" class="modal">
+        <div class="modal-content">
+            <h2>选择下载文件</h2>
+            <div class="custom-select">
+                <div class="select-selected">请选择文件</div>
+                <div class="select-items select-hide"></div>
+            </div><button id="download-btn">下载</button>
+        </div>
+    </div>
+    <div id="incremental-update-modal" class="tooltip-modal">
+        <div class="tooltip-modal-content">
+            <h2>增量更新说明</h2>
+            <p>① 保留上次用户自己修改的规则</p>
+            <p>② 例如自己加的新的线程规则/或者修改的线程规则，下次模块安装时不会覆盖文件，而且保留上次修改的规则。</p>
+            <p>③ 模块安装时，如果模块有新适配的游戏/应用，会加上，但是旧的应用规则，会以用户修改的规则优先。</p>
+        </div>
+    </div>
+    <div id="version-1.3.5-modal" class="tooltip-modal">
+        <div class="tooltip-modal-content">
+            <h2>1.3.5版本说明</h2>
+            <p>底包1.3.5版本与最新底包的区别在于运行更简单，适合遇到正式版无法绑定线程的情况。修改版仅AppOpt二进制文件不同，其余脚本和规则与正式版同步更新。</p>
+        </div>
+    </div>
+    <div id="version-sched-setscheduler-modal" class="tooltip-modal">
+        <div class="tooltip-modal-content">
+            <h2>实时模式版本说明</h2>
+            <p>① 实时模式版本，区别在于能够调节线程的优先级<code>SCHED_OTHER/SCHED_RR/SCHED_FIFO</code></p>
+            <p>② 代码来源于项目<a href="https://github.com/yeg278/DeamOpt">DeamOpt(感谢)</a></p>
+            <p>③ 具体请查看配置文件<code>/data/adb/modules/AppOpt_Aloazny/priority.prop</code></p>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof hljs !== 'undefined') {
+                hljs.highlightAll();
+            }
+        
+            const homeContent = document.getElementById('home-content');
+            const markdownContent = document.getElementById('markdown-content');
+            const navLinks = document.querySelectorAll('nav a');
+            const container = document.querySelector('.container');
+            const modal = document.getElementById('download-modal');
+            const githubLink = document.getElementById('github-download-link');
+            const downloadButton = document.getElementById('download-btn');
+            const nav = document.querySelector('nav');
+            const tooltipTriggers = document.querySelectorAll('.tooltip-trigger');
+            const tooltipModals = document.querySelectorAll('.tooltip-modal');
+        
+            tooltipTriggers.forEach(trigger => {
+                trigger.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const tooltipId = trigger.getAttribute('data-tooltip') + '-modal';
+                    const modal = document.getElementById(tooltipId);
+                    if (modal) {
+                        modal.style.display = 'flex';
+                    }
+                });
+            });
+        
+            tooltipModals.forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        modal.style.display = 'none';
+                    }
+                });
+            });
+        
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        
+            function showHome() {
+                homeContent.style.display = 'block';
+                markdownContent.style.display = 'none';
+                document.title = 'AppOpt 二改';
+            }
+        
+            function showMarkdown(file) {
+                fetch(file)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`文件加载失败: ${response.status} ${response.statusText}`);
+                        }
+                        return response.text();
+                    })
+                    .then(data => {
+                        homeContent.style.display = 'none';
+                        markdownContent.style.display = 'block';
+                        markdownContent.innerHTML = marked.parse(data);
+                        document.title = `AppOpt 二改 - ${file.split('/').pop().replace(/\.md$/, '')}`;
+                        if (typeof hljs !== 'undefined') {
+                            document.querySelectorAll('pre code').forEach(block => {
+                                hljs.highlightElement(block);
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        homeContent.style.display = 'none';
+                        markdownContent.style.display = 'block';
+                        markdownContent.innerHTML = `<p class="error">错误：无法加载文件 ${file} (${error.message})</p>`;
+                        document.title = 'AppOpt 二改 - 错误';
+                    });
+            }
+        
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const href = link.getAttribute('href');
+                    const mdFile = link.getAttribute('data-md');
+                    if (mdFile) {
+                        window.location.hash = link.textContent.trim();
+                        showMarkdown(mdFile);
+                    } else {
+                        window.location.hash = href === '#' ? '' : href;
+                        if (link.getAttribute('data-view') === 'home') {
+                            showHome();
+                        } else {
+                            showHome();
+                            const targetElement = document.querySelector(href);
+                            if (targetElement) {
+                                targetElement.scrollIntoView({ behavior: 'smooth' });
+                            }
+                        }
+                    }
+                });
+            });
+        
+            window.addEventListener('hashchange', () => {
+                const hash = window.location.hash;
+                const cleanHash = decodeURI(hash.replace(/^#/, ''));
+                const targetLink = Array.from(navLinks).find(link => {
+                    const href = decodeURI(link.getAttribute('href').replace(/^#/, ''));
+                    const text = link.textContent.trim();
+                    return href === cleanHash || text === cleanHash;
+                });
+        
+                if (targetLink) {
+                    const mdFile = targetLink.getAttribute('data-md');
+                    if (mdFile) {
+                        showMarkdown(mdFile);
+                    } else if (targetLink.getAttribute('data-view') === 'home') {
+                        showHome();
+                    } else {
+                        showHome();
+                        const targetElement = document.querySelector(`#${cleanHash}`);
+                        if (targetElement) {
+                            targetElement.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    }
+                } else {
+                    showHome();
+                }
+            });
+        
+            window.addEventListener('load', () => {
+                requestAnimationFrame(() => {
+                    container.classList.add('loaded');
+                    const hash = window.location.hash;
+                    if (hash) {
+                        const cleanHash = decodeURI(hash.replace(/^#/, ''));
+                        const targetLink = Array.from(navLinks).find(link => {
+                            const href = decodeURI(link.getAttribute('href').replace(/^#/, ''));
+                            const text = link.textContent.trim();
+                            return href === cleanHash || text === cleanHash;
+                        });
+                        if (targetLink && targetLink.getAttribute('data-md')) {
+                            showMarkdown(targetLink.getAttribute('data-md'));
+                        } else if (targetLink) {
+                            showHome();
+                            const targetElement = document.querySelector(`#${cleanHash}`);
+                            if (targetElement) {
+                                targetElement.scrollIntoView({ behavior: 'smooth' });
+                            }
+                        } else {
+                            showHome();
+                        }
+                    } else {
+                        showHome();
+                    }
+                });
+            });
+        
+            fetch('https://aloazny.github.io/AppOpt_Aloazny/update/update.json')
+                .then(response => {
+                    if (!response.ok) throw new Error('无法加载 update.json');
+                    return response.json();
+                })
+                .then(data => {
+                    const match = data.zipUrl.match(/%E7%BA%BF%E7%A8%8B%E4%BC%98%E5%8C%96%E4%BA%8C%E6%94%B9(\d+)\.zip$/);
+                    const latestNumber = match ? parseInt(match[1]) : 1;
+                    const githubFiles = Array.from({ length: latestNumber }, (_, i) => 
+                        `https://aloazny.github.io/AppOpt_Aloazny/modules/%E7%BA%BF%E7%A8%8B%E4%BC%98%E5%8C%96%E4%BA%8C%E6%94%B9${latestNumber - i}.zip`);
+        
+                    function populateFileSelect() {
+                        const selectItems = document.querySelector('.select-items');
+                        selectItems.innerHTML = '';
+                        githubFiles.forEach(file => {
+                            const div = document.createElement('div');
+                            div.textContent = decodeURIComponent(file.split('/').pop());
+                            div.dataset.value = file;
+                            selectItems.appendChild(div);
+                        });
+                    }
+        
+                    githubLink.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        populateFileSelect();
+                        modal.style.display = 'flex';
+                        document.querySelector('.select-selected').textContent = '请选择文件';
+                        document.querySelector('.select-items').classList.add('select-hide');
+                    });
+        
+                    const selectSelected = document.querySelector('.select-selected');
+                    const selectItems = document.querySelector('.select-items');
+        
+                    selectSelected.addEventListener('click', () => {
+                        selectItems.classList.toggle('select-hide');
+                        selectItems.classList.toggle('show');
+                    });
+        
+                    selectItems.addEventListener('click', (e) => {
+                        if (e.target.tagName === 'DIV') {
+                            selectSelected.textContent = e.target.textContent;
+                            selectItems.classList.add('select-hide');
+                            selectItems.classList.remove('show');
+                            selectItems.querySelectorAll('div').forEach(div => div.classList.remove('selected'));
+                            e.target.classList.add('selected');
+                        }
+                    });
+        
+                    document.addEventListener('click', (e) => {
+                        if (!e.target.closest('.custom-select') && !e.target.closest('.modal-content')) {
+                            selectItems.classList.add('select-hide');
+                            selectItems.classList.remove('show');
+                        }
+                    });
+        
+                    downloadButton.addEventListener('click', () => {
+                        const selectedItem = selectItems.querySelector('.selected');
+                        if (selectedItem) {
+                            window.open(selectedItem.dataset.value, '_blank');
+                            modal.style.display = 'none';
+                        } else {
+                            alert('请先选择一个文件！');
+                        }
+                    });
+                })
+                .catch(error => {
+                    document.querySelector('.select-items').innerHTML = '<div>无法加载文件列表</div>';
+                });
+        
+            let lastScrollTop = 0;
+            let scrollTimeout = null;
+            const scrollThreshold = 20;
+        
+            window.addEventListener('scroll', () => {
+                const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+                if (scrollTimeout) clearTimeout(scrollTimeout);
+        
+                scrollTimeout = setTimeout(() => {
+                    if (currentScrollTop > lastScrollTop && currentScrollTop - lastScrollTop > scrollThreshold) {
+                        nav.classList.add('hidden');
+                    }
+                    else if (currentScrollTop < lastScrollTop && lastScrollTop - currentScrollTop > scrollThreshold / 2) {
+                        nav.classList.remove('hidden');
+                    }
+        
+                    lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
+                }, 10);
+            });
+        
+            showHome();
+        });
+    </script>
+</body>
+
+</html>
