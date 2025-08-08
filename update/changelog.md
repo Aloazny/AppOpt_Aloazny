@@ -9,6 +9,11 @@
 - [点击查看适配应用列表](https://aloazny.github.io/AppOpt_Aloazny/#%E9%80%82%E9%85%8D%E5%88%97%E8%A1%A8)
 
 ### 更新日志
+> 21.1
+- 添加Nullgram (`top.qwq2333.nullgram`)，Cherrygram (`uz.unnarsx.cherrygram`)适配。
+- 限制Tg第三方客户端，Neko/Nag一个异常负载的线程`decodeQueueorg.`。
+- 调整**MIUI桌面线程**。
+- 调整`Aloazny.sh`脚本。
 > 21.0
 - 添加Tubular (`org.polymorphicshade.tubular`)，Google play商店 (`com.android.vending`)，Aurora (`com.aurora.store`)，Fdroid (`org.fdroid.fdroid`)，Droidfy (`com.looker.droidify`)适配。
 - 优化内存占用。
