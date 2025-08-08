@@ -10,6 +10,8 @@
 - **Flags文件**创建或者删除后，需要**重新刷模块压缩包入生效**，例如我下载了`线程优化二改211.zip`刷入后，想要实现(取消)增加更新，那么我在创建(删除)`/data/adb/modules/AppOpt_Aloazny/keep_custom_rule`后，**需要再次重新刷模块压缩包(`线程优化二改211.zip`)入生效**。
 
 ### 更新日志
+> 21.2
+- 添加掌阅(iReader) (`com.chaozh.iReaderFree`,`com.chaozh.reader`,`com.mci.smagazine`)适配。
 > 21.1
 - 添加Nullgram (`top.qwq2333.nullgram`)，Cherrygram (`uz.unnarsx.cherrygram`)适配。
 - 限制Tg第三方客户端，Neko/Nag一个异常负载的线程`decodeQueueorg.`。
@@ -18,8 +20,3 @@
 > 21.0
 - 添加Tubular (`org.polymorphicshade.tubular`)，Google play商店 (`com.android.vending`)，Aurora (`com.aurora.store`)，Fdroid (`org.fdroid.fdroid`)，Droidfy (`com.looker.droidify`)适配。
 - 优化内存占用。
-> 20.9
-- 优化内存占用。
-> 20.8
-- 添加`persist.sys.miui_animator_sched.enabled=false`值，**用于禁用MIUI自带线程绑定**。
-- 调整网易云/`lspd`线程。

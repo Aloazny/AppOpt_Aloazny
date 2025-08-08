@@ -2,6 +2,8 @@
 ### 原模块地址: https://gitee.com/sutoliu/AppOpt
 #### 二改模块日志
 
+> 21.2
+- 添加掌阅(iReader) (`com.chaozh.iReaderFree`,`com.chaozh.reader`,`com.mci.smagazine`)适配。
 > 21.1
 - 添加Nullgram (`top.qwq2333.nullgram`)，Cherrygram (`uz.unnarsx.cherrygram`)适配。
 - 限制Tg第三方客户端，Neko/Nag一个异常负载的线程`decodeQueueorg.`。
