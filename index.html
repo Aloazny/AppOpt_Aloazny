@@ -409,6 +409,12 @@
                 <li>创建<code>/data/adb/modules/AppOpt_Aloazny/{disable_program/enable_program}</code>空文件，用于控制是否禁用一些冲突（<strong>如果存在</strong>）的系统进程，具体请自行查看<code>program_ctrl.sh</code>脚本，默认不做任何修改。</li>
                 <li>创建<code>/data/adb/modules/AppOpt_Aloazny/keep_custom_rule</code>用于安装时，增量更新<sup class="tooltip-trigger" data-tooltip="incremental-update">①</sup>用户修改/添加的规则。</li>
             </ul>
+            <h2 id="提示">Tips</h2>
+            <ul>
+                <li><strong>Flags</strong>文件创建或者删除后，需要<strong>重新刷模块压缩包入生效</strong>。</li>
+                <li>例如我下载了<code>线程优化二改211.zip</code>刷入后。</li>
+                <li>想要实现(取消)增加更新，那么我在创建(删除)<code>/data/adb/modules/AppOpt_Aloazny/keep_custom_rule</code>后，需要<strong>再次重新刷模块压缩包(<code>线程优化二改211.zip</code>)入生效</strong>。</li>
+            </ul>
             <h2 id="适配列表">模块适配列表</h2>
             <ul>
                 <li><a href="#适配列表" data-md="https://aloazny.github.io/AppOpt_Aloazny/update/%E9%80%82%E9%85%8D%E5%BA%94%E7%94%A8.md">点击查看</a></li>
@@ -442,7 +448,7 @@
         </div>
         <div id="markdown-content" class="markdown-body"></div>
     </div>
-    <nav><a href="#" data-view="home">主页</a><a href="#介绍">介绍</a><a href="#参数说明">参数说明</a><a href="#适配列表" data-md="https://aloazny.github.io/AppOpt_Aloazny/update/%E9%80%82%E9%85%8D%E5%BA%94%E7%94%A8.md">适配列表</a><a href="#更新日志" data-md="https://aloazny.github.io/AppOpt_Aloazny/update/update.md">更新日志</a><a href="#下载地址">下载地址</a><a href="#教程">教程</a><a href="#感谢">感谢</a></nav>
+    <nav><a href="#" data-view="home">主页</a><a href="#介绍">介绍</a><a href="#参数说明">参数说明</a><a href="#提示">提示</a><a href="#适配列表" data-md="https://aloazny.github.io/AppOpt_Aloazny/update/%E9%80%82%E9%85%8D%E5%BA%94%E7%94%A8.md">适配列表</a><a href="#更新日志" data-md="https://aloazny.github.io/AppOpt_Aloazny/update/update.md">更新日志</a><a href="#下载地址">下载地址</a><a href="#教程">教程</a><a href="#感谢">感谢</a></nav>
     <div id="download-modal" class="modal">
         <div class="modal-content">
             <h2>选择下载文件</h2>

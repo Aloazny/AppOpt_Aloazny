@@ -18,6 +18,12 @@
 - 创建`/data/adb/modules/AppOpt_Aloazny/{disable_program/enable_program}`空文件，用于控制是否禁用一些冲突(**如果存在**)的系统进程，具体请自行查看`program_ctrl.sh`脚本，默认不做任何修改。
 - 创建`/data/adb/modules/AppOpt_Aloazny/keep_custom_rule`用于安装时，增量更新用户修改/添加的规则。
 
+> ### 提示(Tips)
+- **Flags文件**创建或者删除后，需要**重新刷模块压缩包入生效**。
+- 例如我下载了`线程优化二改211.zip`刷入后。
+- 想要实现(取消)增加更新，那么我在创建(删除)`/data/adb/modules/AppOpt_Aloazny/keep_custom_rule`后，**需要再次重新刷模块压缩包(`线程优化二改211.zip`)入生效**。
+- **模块更新一般无需重启**。
+
 > ### 模块适配列表
 - [点击查看](./update/%E9%80%82%E9%85%8D%E5%BA%94%E7%94%A8.md)
 
@@ -26,6 +32,8 @@
 
 > ### 蓝奏云下载地址
 - [点击转跳 密码:111](https://aloazny.lanzouo.com/b00je9nu1i)
+- [1.3.5版本 密码: 111](https://aloazny.lanzouo.com/b00jeipeeb)
+- [实时模式 密码:111](https://aloazny.lanzouo.com/b00jeku6cd)
 
 > ### 线程配置理念和教程
 - [教程和理念](https://www.coolapk.com/feed/63785290)
@@ -34,5 +42,6 @@
 > ### 感谢
 - [AppOpt (GPL3.0) ](https://gitee.com/sutoliu/AppOpt) 
 - [Uthash  (BSD2.0) ](https://troydhanson.github.io/uthash/)
+- [DeamOpt (GPL3.0) ](https://github.com/yeg278/DeamOpt)
 - [markedjs (MIT) ](https://github.com/markedjs/marked)
 - [Highlight.js (BSD3.0)](https://highlightjs.org/)
