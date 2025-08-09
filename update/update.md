@@ -2,6 +2,10 @@
 ### 原模块地址: https://gitee.com/sutoliu/AppOpt
 #### 二改模块日志
 
+> 21.3
+- 添加阅读星(iBookstar) (`com.iBookStar.activity`)，Lithium (`com.faultexception.reader`)适配。
+- 为`cpu_control.sh`添加部分注释。
+- 调整`6+2`线程分配。
 > 21.2
 - 添加掌阅(iReader) (`com.chaozh.iReaderFree`,`com.chaozh.reader`,`com.mci.smagazine`)适配。
 > 21.1
