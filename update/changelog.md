@@ -10,13 +10,10 @@
 - **Flags文件**创建或者删除后，需要**重新刷模块压缩包入生效**，例如我下载了`线程优化二改211.zip`刷入后，想要实现(取消)增量更新，那么我在创建(删除)`/data/adb/modules/AppOpt_Aloazny/keep_custom_rule`后，**需要再次重新刷模块压缩包(`线程优化二改211.zip`)入生效**。
 
 ### 更新日志
+> 23.3
+- 添加最终幻想14水晶世界(`com.tencent.tmgp.fmgame`)，时空猎人(`com.yinhan.hunter.yh`,`com.yinhan.hunter.mi`,`com.yinhan.hunter.uc`,`com.yinhan.hunter.huawei`,`com.yinhan.hunter.tx`,`com.yinhan.hunter.qihoo`)，射雕(`com.netease.sdsbq`,`com.netease.sdsbq.mi`,`com.netease.sdsbq.huawei`)，照片编辑器(photo editor) (`com.iudesk.android.photo.editor`)，GreenTuber(`by.green.tuber`)适配。
 > 23.2
 - 添加悠悠有品 (`com.uu898.uuhavequality`)，Han1meviewer (`com.yenaly.han1meviewer`)，有道云笔记 (`com.youdao.note`)适配。
 > 23.1
 - 添加Animius (`com.lanlinju.animius`)，Koodo Reader (`com.koodoreader.expo`)适配。
 - 优化AppOpt对错误规则的检测。
-> 23.0
-- **本次更新建议重启！**
-- cpuset目录改成`/dev/cpuset/system-control-apps`，也不知道Native Detector检测这个做啥？
-- 不再挂载`/system/vendor/bin/msm_irqbalance`文件，因为`cpu_control.sh`也有关闭`msm_irqbalance`服务的脚本。
-- 调整闲鱼线程。

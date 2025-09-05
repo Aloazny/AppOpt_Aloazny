@@ -2,6 +2,8 @@
 ### 原模块地址: https://gitee.com/sutoliu/AppOpt
 #### 二改模块日志
 
+> 23.3
+- 添加最终幻想14水晶世界(`com.tencent.tmgp.fmgame`)，时空猎人(`com.yinhan.hunter.yh`,`com.yinhan.hunter.mi`,`com.yinhan.hunter.uc`,`com.yinhan.hunter.huawei`,`com.yinhan.hunter.tx`,`com.yinhan.hunter.qihoo`)，射雕(`com.netease.sdsbq`,`com.netease.sdsbq.mi`,`com.netease.sdsbq.huawei`)，照片编辑器(photo editor) (`com.iudesk.android.photo.editor`)，GreenTuber(`by.green.tuber`)适配。
 > 23.2
 - 添加悠悠有品 (`com.uu898.uuhavequality`)，Han1meviewer (`com.yenaly.han1meviewer`)，有道云笔记 (`com.youdao.note`)适配。
 > 23.1
