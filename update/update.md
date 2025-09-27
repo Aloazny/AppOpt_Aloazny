@@ -2,6 +2,9 @@
 ### 原模块地址: https://gitee.com/sutoliu/AppOpt
 #### 二改模块日志
 
+> 23.7
+- 添加雀魂麻将(`com.soulgamechst.majsoul`)，MMRL (`com.dergoogler.mmrl`)，线程优化管理(`com.AppOptManager`)适配。
+- 调整MIUI的CPU亲和系统`prop`值。
 > 23.6
 - 修复`AppOpt`意外终止的bug。
 > 23.5

@@ -10,11 +10,6 @@
 - **Flags文件**创建或者删除后，需要**重新刷模块压缩包入生效**，例如我下载了`线程优化二改211.zip`刷入后，想要实现(取消)增量更新，那么我在创建(删除)`/data/adb/modules/AppOpt_Aloazny/keep_custom_rule`后，**需要再次重新刷模块压缩包(`线程优化二改211.zip`)入生效**。
 
 ### 更新日志
-> 23.6
-- 修复`AppOpt`意外终止的bug。
-> 23.5
-- 适配Vie浏览器 (`kawaii.vie`)，美团小游戏，小米浏览器国际版。
-- 调整`cpu_control.sh`，减少对`migt`的修改。
-- 修改**poweramp线程**的一个bug。
-> 23.4
-- 添加空洞骑士 (`com.TeamCherry.HollowKnight`)，以闪亮之名 (`com.tencent.tmgp.yslzm`,`com.zulong.yslzm.mi`,`com.archosaur.sea.yslzm.gp`)，Kotatsu(`org.koitharu.kotatsu`)适配。
+> 23.7
+- 添加雀魂麻将(`com.soulgamechst.majsoul`)，MMRL (`com.dergoogler.mmrl`)，线程优化管理(`com.AppOptManager`)适配。
+- 调整MIUI的CPU亲和系统`prop`值。
