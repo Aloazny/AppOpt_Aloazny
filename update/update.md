@@ -2,6 +2,12 @@
 ### 原模块地址: https://gitee.com/sutoliu/AppOpt
 #### 二改模块日志
 
+> 23.9
+- 添加Reex(`xyz.re.player.ex`)适配。
+- 适配`KB视频工厂`老版本的一个线程。
+> 23.8
+- 添加格式工厂(`com.geshi.formatfactory`)，可口的比萨(`com.tapblaze.pizzabusiness`)，风云格式工厂(`net.windcloud.explorer`)适配。
+- 适配`idm+(1dm+)`新版本线程。
 > 23.7
 - 添加雀魂麻将(`com.soulgamechst.majsoul`)，MMRL (`com.dergoogler.mmrl`)，线程优化管理(`com.AppOptManager`)适配。
 - 调整MIUI的CPU亲和系统`prop`值。
