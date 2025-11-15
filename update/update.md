@@ -2,6 +2,8 @@
 ### 原模块地址: https://gitee.com/sutoliu/AppOpt
 #### 二改模块日志
 
+> 24.8
+- 添加无尽对决(决胜巅峰)(`com.dfjz.moba`,`com.mobile.legends`,`gg.com.mobile.legends.lite`,`com.dfjz.moba.aligames`,`com.dfjz.moba.mi`)，Sparkle(`com.sparkle.tool`)，即看影视 (`skymac.kmapp.app`)，超凡先锋 (`com.tencent.tmgp.cfxf`,`com.netease.cfxf.huawei`,`com.netease.cfxf.mi`)适配。
 > 24.7
 - 适配PipePipe(beta)(`project.pipepipe.app`)，YouTube(`com.google.android.youtube`)。
 - 修正`anti_evil_zygisk.sh`的错误，适配删除`bin.mt.plus.termex`。
