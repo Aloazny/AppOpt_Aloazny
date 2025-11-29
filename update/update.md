@@ -2,6 +2,9 @@
 ### 原模块地址: https://gitee.com/sutoliu/AppOpt
 #### 二改模块日志
 
+> 24.9
+- 更新`program_ctrl.sh`脚本对`oiface`进程控制代码，之前有这问题的OPPO/一加设备可以试试。
+- 调整`ThreadPool`线程。
 > 24.8
 - 添加无尽对决(决胜巅峰)(`com.dfjz.moba`,`com.mobile.legends`,`gg.com.mobile.legends.lite`,`com.dfjz.moba.aligames`,`com.dfjz.moba.mi`)，Sparkle(`com.sparkle.tool`)，即看影视 (`skymac.kmapp.app`)，超凡先锋 (`com.tencent.tmgp.cfxf`,`com.netease.cfxf.huawei`,`com.netease.cfxf.mi`)适配。
 > 24.7
