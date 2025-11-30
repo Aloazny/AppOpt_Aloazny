@@ -10,11 +10,8 @@
 - **Flags文件**创建或者删除后，需要**重新刷模块压缩包入生效**，例如我下载了`线程优化二改211.zip`刷入后，想要实现(取消)增量更新，那么我在创建(删除)`/data/adb/modules/AppOpt_Aloazny/keep_custom_rule`后，**需要再次重新刷模块压缩包(`线程优化二改211.zip`)入生效**。
 
 ### 更新日志
+> 25.0
+- 感谢酷友[@你在你家还是说](http://www.coolapk.com/u/31414838)测试，修正`program_ctrl.sh`脚本。
 > 24.9
-- 更新`program_ctrl.sh`脚本对`oiface`进程控制代码，之前有这问题的OPPO/一加设备可以试试。
+- 感谢酷友[@刘子涵不搞机](http://www.coolapk.com/u/23950763)测试，更新`program_ctrl.sh`脚本对`oiface`进程控制代码，之前有这问题的OPPO/一加设备可以试试。
 - 调整`ThreadPool`线程。
-> 24.8
-- 添加无尽对决(决胜巅峰)(`com.dfjz.moba`,`com.mobile.legends`,`gg.com.mobile.legends.lite`,`com.dfjz.moba.aligames`,`com.dfjz.moba.mi`)，Sparkle(`com.sparkle.tool`)，即看影视 (`skymac.kmapp.app`)，超凡先锋 (`com.tencent.tmgp.cfxf`,`com.netease.cfxf.huawei`,`com.netease.cfxf.mi`)适配。
-> 24.7
-- 适配PipePipe(beta)(`project.pipepipe.app`)，YouTube(`com.google.android.youtube`)。
-- 修正`anti_evil_zygisk.sh`的错误，适配删除`bin.mt.plus.termex`。
