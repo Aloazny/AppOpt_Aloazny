@@ -2,6 +2,9 @@
 ### 原模块地址: https://gitee.com/sutoliu/AppOpt
 #### 二改模块日志
 
+> 25.9
+- 添加efootball™(`jp.konami.pesam`)适配，感谢[Github@wang42310-sudo](https://github.com/wang42310-sudo)提供线程图。
+- 添加Phocid(`org.sunsetware.phocid`)，Gramophone(`org.akanework.gramophone`)，光锥音乐(`ink.trantor.coneplayer`)，NBA2K26MyTEAM(`com.t2ksports.myteam2k26v2`,`com.t2ksports.myteam2k25`)，贴吧lite(第三方)(`com.huanchengfly.tieba.post`)适配。
 > 25.8
 - 添加诅咒之岛(`com.jurassic.world.the.cursed.isle.dinosaurs.carnivores.dino.hunter.dinos.online.trex.tyrannosaurus.simulator`)适配。
 - 调整`inotify`部分代码，尝试解决部分移植包设备可能出现软重启的情况。
