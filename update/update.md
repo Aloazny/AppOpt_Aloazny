@@ -2,6 +2,9 @@
 ### 原模块地址: https://gitee.com/sutoliu/AppOpt
 #### 二改模块日志
 
+> 26.2
+- 调整`ThreadPoolForeg`线程。
+- 为`MTK`平台`Zygisknext`用户，未开启`排除列表策略`的，自动开启。
 > 26.1
 - 添加Retro Player (`code.name.monkey.retromusic`)，BiliPai(`com.android.purebilibili`)，PiliPro(`com.example.pilipro`)适配。
 - 调整QQ线程。

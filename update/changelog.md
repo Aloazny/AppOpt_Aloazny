@@ -13,10 +13,9 @@
 - 祝各位**新年喜乐，岁岁安康！**
 
 ### 更新日志
+> 26.2
+- 调整`ThreadPoolForeg`线程。
+- 为`MTK`平台`Zygisknext`用户，未开启`排除列表策略`的，自动开启。
 > 26.1
 - 添加Retro Player (`code.name.monkey.retromusic`)，BiliPai(`com.android.purebilibili`)，PiliPro(`com.example.pilipro`)适配。
 - 调整QQ线程。
-> 26.0
-- 添加轻榴浏览器(`com.mingzhisoft.browser`)和Stargon(`net.onecook.browser`)适配。
-- 调整`2+3+2+1`/`6+2`线程和微信小程序线程。
-- `AppOpt`去掉通过`mmap`读取配置文件。
