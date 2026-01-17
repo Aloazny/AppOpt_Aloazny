@@ -34,6 +34,7 @@
 - [点击转跳 密码:111](https://aloazny.lanzouo.com/b00je9nu1i)
 - [1.3.5版本 密码: 111](https://aloazny.lanzouo.com/b00jeipeeb)
 - [实时模式 密码:111](https://aloazny.lanzouo.com/b00jeku6cd)
+- [Ebpf版本(测试) 密码:111](https://aloazny.lanzouv.com/b00jf0lz0h)
 
 > ### 线程配置理念和教程
 - [教程和理念](https://www.coolapk.com/feed/63785290)
