@@ -2,6 +2,9 @@
 ### 原模块地址: https://gitee.com/sutoliu/AppOpt
 #### 二改模块日志
 
+> 26.5
+- 补全Fulguris (`net.slions.fulguris.full.download`, `net.slions.fulguris.full.fdroid`, `net.slions.fulguris.full.playstore`)适配。
+- 添加逆战:未来 (`com.tencent.tmgp.nz`)适配。
 > 26.4
 - 添加Gemini(Google)(`com.google.android.googlequicksearchbox`, `com.google.android.apps.bard`)和Fulguris(`net.slions.fulguris.full.download`)适配。
 - 调整`IDM+`和`ThreadPoolForeg`线程。

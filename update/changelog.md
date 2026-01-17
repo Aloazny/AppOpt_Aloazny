@@ -2,6 +2,7 @@
 - [点击转跳 密码:111](https://aloazny.lanzouo.com/b00je9nu1i)
 - [1.3.5版本 密码: 111](https://aloazny.lanzouo.com/b00jeipeeb)
 - [实时模式 密码:111](https://aloazny.lanzouo.com/b00jeku6cd)
+- [Ebpf版本(测试) 密码:111](https://aloazny.lanzouv.com/b00jf0lz0h)
 
 ### 注意
 - **模块更新一般无需重启**。
@@ -11,9 +12,9 @@
 
 
 ### 更新日志
+> 26.5
+- 补全Fulguris (`net.slions.fulguris.full.download`, `net.slions.fulguris.full.fdroid`, `net.slions.fulguris.full.playstore`)适配。
+- 添加逆战:未来 (`com.tencent.tmgp.nz`)适配。
 > 26.4
 - 添加Gemini(Google)(`com.google.android.googlequicksearchbox`, `com.google.android.apps.bard`)和Fulguris(`net.slions.fulguris.full.download`)适配。
 - 调整`IDM+`和`ThreadPoolForeg`线程。
-> 26.3
-- 调整`MTOOLS`的`Web Content`线程。
-- 调整`ThreadPoolForeg`线程，轻榴浏览器单独调为`大核+小核`，其他丢给小核心。
