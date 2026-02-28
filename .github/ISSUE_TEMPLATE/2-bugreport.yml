@@ -1,0 +1,70 @@
+name: 程序 Bug 反馈
+description: 报告 AppOpt 程序运行中的 Bug
+labels: ["bug"]
+assignees:
+  - Aloazny
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢你帮助改进 AppOpt！请提供详细的 Bug 描述，以便我们快速定位和修复问题。请尽可能提供复现步骤和相关日志。
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: Bug 描述
+      description: 请详细描述你遇到的问题，例如程序崩溃、无法应用亲和性规则等。
+      placeholder: 例如：程序在加载配置文件时崩溃，提示“无法打开配置文件”。
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction-steps
+    attributes:
+      label: 复现步骤
+      description: 请列出复现 Bug 的详细步骤，以便我们重现问题。
+      placeholder: |
+        1. 启动 AppOpt
+        2. 使用配置文件 applist.conf
+        3. 运行程序后观察到崩溃
+    validations:
+      required: true
+  - type: input
+    id: appopt-version
+    attributes:
+      label: AppOpt 版本
+      description: 请提供你使用的 AppOpt 版本号（例如：1.6.3）。
+      placeholder: 例如：1.6.3
+    validations:
+      required: true
+  - type: input
+    id: os-info
+    attributes:
+      label: 操作系统信息
+      description: 请提供你的操作系统信息（例如：Android 14，Linux 5.4）。
+      placeholder: 例如：Android 14
+    validations:
+      required: true
+  - type: textarea
+    id: log-output
+    attributes:
+      label: 日志输出
+      description: |
+        请提供程序运行时的日志输出（如果有/data/adb/modules/AppOpt_Aloazny/affinity_manager.log文件）
+      placeholder: 上传日志文件或粘贴日志内容
+    validations:
+      required: false
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: 截图或视频
+      description: 如果有相关的截图或视频可以帮助说明问题，请上传或提供链接。
+      placeholder: 上传截图/视频或提供链接（例如：https://example.com/screenshot.png）
+    validations:
+      required: false
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: 其他信息
+      description: 如果有其他相关信息（例如：配置文件内容、特定硬件环境等），请在这里提供。
+      placeholder: 例如：使用自定义配置文件，内容如下...
+    validations:
+      required: false
