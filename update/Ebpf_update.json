@@ -1,0 +1,6 @@
+{
+    "version": "Ebpf[32]",
+    "versionCode": 32,
+    "zipUrl": "https://aloazny.github.io/AppOpt_Aloazny/modules/Ebpf.zip",
+    "changelog": "https://aloazny.github.io/AppOpt_Aloazny/update/changelog.md"
+}
