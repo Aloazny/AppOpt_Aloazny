@@ -3,6 +3,9 @@
 #### 二改模块日志
 
 
+> 28.4
+- 修复一个`Asoulpackage.sh`脚本未迁移的bug。
+- 紧急修复一个MT管理器(`26040453`)版本无法仔压缩包运行`uninstall.sh`脚本的bug，这个版本没法运行后台脚本，只能运行前台。
 > 28.3
 - 添加`keep_Asoulopt`和`zip_first`两个flag文件。
 - 创建`/data/adb/modules/AppOpt_Aloazny/Flags/keep_Asoulopt`用于处理和[Asoulopt](https://github.com/nakixii/Magisk_AsoulOpt)冲突的包名，会删掉和**Asoulopt**冲突的规则，不影响**Asoulopt**运行。
