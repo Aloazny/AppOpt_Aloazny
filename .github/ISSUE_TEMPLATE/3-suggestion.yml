@@ -1,0 +1,18 @@
+name: 其他建议
+description: 提出对 AppOpt 的功能改进或其他建议
+labels: ["enhancement", "suggestion"]
+assignees:
+  - Aloazny
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢你为 AppOpt 提供建议！请详细描述你的想法或改进建议，帮助我们完善项目。
+  - type: textarea
+    id: suggestion-description
+    attributes:
+      label: 建议描述
+      description: 请详细描述你的建议，例如新功能、优化方向或用户体验改进。
+      placeholder: 例如：……
+    validations:
+      required: true
