@@ -5,6 +5,11 @@
 ### **二改模块日志**
 ---
 
+#### **32.2**
+- 添加MAA Meow(`com.aliothmoon.maameow`)，Median browser(`com.xinyv.median.compat`)适配。
+- 调整无畏契约线程。
+- 修复`util_func.sh`脚本`format_cpu_ranges`函数传入负数异常值，默认输出为全核心。
+- 高通骁龙`625`(`msm8953`)`8`核无簇区分之类的处理器，由默认`4+3+1`改成更符合实际的`4+4`。
 #### **32.1**
 - 调整MIUI桌面线程。
 - 添加适配bbspace(`com.naaammme.bbspace`)，PUBG: NEW STATE(绝地求生：未来之役)(`com.pubg.newstate`)。
