@@ -1,0 +1,65 @@
+name: 请求软件适配
+description: 提交一个新的软件适配请求，优化线程亲和性设置
+labels: ["enhancement", "software-adaptation"]
+assignees:
+  - Aloazny
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢你提交软件适配请求！请按照以下模板提供详细信息，以便我们为你的应用生成合适的亲和性规则。请确保提供准确的信息，尤其是线程负载统计和亲和性占用率截图。
+  - type: input
+    id: app-name
+    attributes:
+      label: 应用名称
+      description: 请提供需要适配的应用的完整名称（例如：ZArchiver Pro）。
+      placeholder: 例如：ZArchiver Pro
+    validations:
+      required: true
+  - type: input
+    id: package-name
+    attributes:
+      label: 应用包名
+      description: 请提供应用的包名（例如：ru.zdevs.zarchiver.pro）。可以通过应用信息或相关工具查看。
+      placeholder: 例如：ru.zdevs.zarchiver.pro
+    validations:
+      required: true
+  - type: input
+    id: processor-info
+    attributes:
+      label: 手机处理器
+      description: 请提供你的手机处理器型号及核心配置（例如：8+ Gen1 (4+3+1)）。
+      placeholder: 例如：8+ Gen1 (4+3+1)
+    validations:
+      required: true
+  - type: textarea
+    id: scene-thread-graph
+    attributes:
+      label: Scene 线程负载统计截图
+      description: |
+        请提供使用 Scene 记录的线程负载统计截图。操作步骤：
+        1. 打开 Scene 应用
+        2. 前往“主页顶部 → 功能 → 帧率记录 → 记录应用使用场景”
+        3. 记录完毕后，拉到底部，截取包含“线程负载统计”的完整长截图
+        请上传截图或提供图片链接。
+      placeholder: 上传截图或提供链接
+    validations:
+      required: true
+  - type: textarea
+    id: affinity-module-screenshot
+    attributes:
+      label: 线程亲和获取模块截图
+      description: |
+        请提供使用线程亲和获取模块的截图，需包含占用率前几个线程及历史规则。模块下载地址：https://aloazny.lanzouo.com/b00jea2q6j（密码：111）。  
+        请参考教程：https://www.coolapk.com/feed/65261377?s=ZmY0ZGI4NTU1NTJlN2VnNjg3Y2U5MjR6a1511 进行记录，并上传完整长截图或提供线程亲和获取模块生成的文件。
+      placeholder: 上传截图或者线程亲和获取生成的模块文件
+    validations:
+      required: true
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: 其他信息
+      description: 如果有其他需要说明的信息（例如：应用使用场景、性能瓶颈等），请在这里提供。
+      placeholder: 例如：应用在解压大文件时卡顿，希望优化大核使用。
+    validations:
+      required: false
