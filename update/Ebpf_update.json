@@ -1,6 +1,6 @@
 {
-    "version": "Ebpf[88]",
-    "versionCode": 88,
+    "version": "Ebpf[89]",
+    "versionCode": 89,
     "zipUrl": "https://aloazny.github.io/AppOpt_Aloazny/modules/Ebpf.zip",
     "changelog": "https://aloazny.github.io/AppOpt_Aloazny/update/changelog.md"
 }

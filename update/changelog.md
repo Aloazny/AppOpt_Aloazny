@@ -11,6 +11,9 @@
 - [查看Flags文件说明](https://aloazny.github.io/AppOpt_Aloazny/#%E6%8F%90%E7%A4%BA)
 
 ### 更新日志
+#### **32.4**
+- 添加红果漫剧(`com.kylin.read`)和Qwen Studio(`ai.qwenlm.chat.android`)适配。
+- 调整抖音系列`AOutle*`线程。
 #### **32.3**
 - 修复模块描述核心信息时显示为**未知**的问题。
 - 添加极光浏览器(`com.auroraether.browser`)适配。
